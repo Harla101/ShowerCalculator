@@ -11,24 +11,33 @@ import UIKit
 class FirstViewController: UIViewController {
 	@IBOutlet var displayTimeLabel: UILabel!
 	@IBOutlet weak var startStopButton: UIButton!
+	@IBOutlet weak var gallonsUsedLabel: UILabel!
+	@IBOutlet weak var saveButton: UIButton!
+	@IBOutlet weak var gallonsUsedStaticLabel: UILabel!
 	
 	var startTime = NSTimeInterval()
-	
 	var timer:NSTimer = NSTimer()
+	let gallonsPerMinute = 2.1
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		displayTimeLabel.text = "00:00:00"
+		
 	}
 	
 	@IBAction func startStopButtonPressed(sender: UIButton) {
 		if !timer.valid {
+			displayTimeLabel.hidden = false
+			gallonsUsedLabel.hidden = false
+			gallonsUsedStaticLabel.hidden = false
 		timer = NSTimer.scheduledTimerWithTimeInterval(0.01, target: self, selector: #selector(FirstViewController.updateTime), userInfo: nil, repeats: true)
 		startTime = NSDate.timeIntervalSinceReferenceDate()
 		startStopButton.setTitle("Stop", forState: .Normal)
+			saveButton.hidden = true
 		} else {
 			timer.invalidate()
 			startStopButton.setTitle("Start", forState: .Normal)
+			saveButton.hidden = false
 			
 		}
 	}
@@ -36,7 +45,10 @@ class FirstViewController: UIViewController {
 	@IBAction func resetButtonPressed(sender: AnyObject) {
 			timer.invalidate()
 			displayTimeLabel.text = "00:00:00"
+			gallonsUsedLabel.text = "0.00"
 			startStopButton.setTitle("Start", forState: .Normal)
+			saveButton.hidden = true
+			
 	}
 
 	
@@ -63,14 +75,18 @@ class FirstViewController: UIViewController {
 		let strSeconds = String(format: "%02d", seconds)
 		let strFraction = String(format: "%02d", fraction)
 		
+		//calculate Water Used (in Gallons per minute)
+
+		let gallonsUsed =  (Double(strMinutes)! * gallonsPerMinute) + (Double(strSeconds)! * (gallonsPerMinute / 60)) + (Double(strFraction)! * (gallonsPerMinute / 6000))
+		let strGallonsUsed = String(format: "%.2f", gallonsUsed)
+
+		
 		//concatenate minuets, seconds and milliseconds as assign it to the UILabel
 		displayTimeLabel.text = "\(strMinutes):\(strSeconds):\(strFraction)"
+		gallonsUsedLabel.text = "\(strGallonsUsed)"
 	}
 	
-	func updateGallons() {
-		let gallonsPerMinute = 2.1
-		
-	}
+
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()
 		// Dispose of any resources that can be recreated.
