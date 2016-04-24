@@ -19,6 +19,8 @@ class FirstViewController: UIViewController {
 	var timer:NSTimer = NSTimer()
 	let gallonsPerMinute = 2.1
 	
+
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		displayTimeLabel.text = "00:00:00"
@@ -32,11 +34,12 @@ class FirstViewController: UIViewController {
 			gallonsUsedStaticLabel.hidden = false
 		timer = NSTimer.scheduledTimerWithTimeInterval(0.01, target: self, selector: #selector(FirstViewController.updateTime), userInfo: nil, repeats: true)
 		startTime = NSDate.timeIntervalSinceReferenceDate()
-		startStopButton.setTitle("Stop", forState: .Normal)
+		startStopButton.setImage(UIImage(named: "StopButton"), forState: .Normal)
 			saveButton.hidden = true
+
 		} else {
 			timer.invalidate()
-			startStopButton.setTitle("Start", forState: .Normal)
+			startStopButton.setImage(UIImage(named: "StartButton"), forState: .Normal)
 			saveButton.hidden = false
 			
 		}
@@ -91,5 +94,7 @@ class FirstViewController: UIViewController {
 		super.didReceiveMemoryWarning()
 		// Dispose of any resources that can be recreated.
 	}
+	
+
 
 }
