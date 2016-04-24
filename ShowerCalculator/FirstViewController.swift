@@ -17,14 +17,22 @@ class FirstViewController: UIViewController {
 	
 	var startTime = NSTimeInterval()
 	var timer:NSTimer = NSTimer()
-	let gallonsPerMinute = 2.1
+	var waterPerMinute = 2.1
+	
+	var isConvertedToLiters = false
 	
 
+	@IBOutlet var calcBackground: UIView!
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		displayTimeLabel.text = "00:00:00"
 		
+		if isConvertedToLiters {
+			let gallonsToLiters = waterPerMinute * 3.785
+			waterPerMinute = gallonsToLiters
+			gallonsUsedStaticLabel.text = "Liters used"
+		}
 	}
 	
 	@IBAction func startStopButtonPressed(sender: UIButton) {
@@ -49,7 +57,7 @@ class FirstViewController: UIViewController {
 			timer.invalidate()
 			displayTimeLabel.text = "00:00:00"
 			gallonsUsedLabel.text = "0.00"
-			startStopButton.setTitle("Start", forState: .Normal)
+			startStopButton.setImage(UIImage(named: "StartButton"), forState: .Normal)
 			saveButton.hidden = true
 			
 	}
@@ -80,7 +88,7 @@ class FirstViewController: UIViewController {
 		
 		//calculate Water Used (in Gallons per minute)
 
-		let gallonsUsed =  (Double(strMinutes)! * gallonsPerMinute) + (Double(strSeconds)! * (gallonsPerMinute / 60)) + (Double(strFraction)! * (gallonsPerMinute / 6000))
+		let gallonsUsed =  (Double(strMinutes)! * waterPerMinute) + (Double(strSeconds)! * (waterPerMinute / 60)) + (Double(strFraction)! * (waterPerMinute / 6000))
 		let strGallonsUsed = String(format: "%.2f", gallonsUsed)
 
 		
