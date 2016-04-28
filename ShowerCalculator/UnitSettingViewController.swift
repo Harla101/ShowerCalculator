@@ -9,44 +9,66 @@
 import UIKit
 
 class UnitSettingViewController: UIViewController {
-
+	
 	@IBOutlet weak var titleLabel: UILabel!
-	
+	@IBOutlet weak var measurementSwitch: UISwitch!
+	@IBOutlet weak var doneButton: UIBarButtonItem!
 	@IBOutlet weak var unitInputTextField: UITextField!
+	@IBOutlet weak var invalidInputLabel: UILabel!
 	
-    override func viewDidLoad() {
-        super.viewDidLoad()
-		unitInputTextField.becomeFirstResponder()
-		
-           }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+	let defaults = NSUserDefaults.standardUserDefaults()
+	
+	
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		unitInputTextField.text = String(defaults.doubleForKey("waterPerMinute"))
+		measurementSwitch.on = defaults.boolForKey("useLiters")
+		useLiters()
+	}
+	
+	override func didReceiveMemoryWarning() {
+		super.didReceiveMemoryWarning()
+		// Dispose of any resources that can be recreated.
+	}
+	
+	
+	
 	
 	@IBAction func cancelButtonTapped(sender: UIBarButtonItem) {
 		unitInputTextField.resignFirstResponder()
 		dismissViewControllerAnimated(true, completion: nil)
-
+		
 	}
 	
 	@IBAction func doneButtonTapped(sender: UIBarButtonItem) {
+		let waterPerMinute = Double(unitInputTextField.text!)
+		defaults.setDouble(waterPerMinute!, forKey: "waterPerMinute")
 		unitInputTextField.resignFirstResponder()
-		
 		dismissViewControllerAnimated(true, completion: nil)
-
+	}
+	@IBAction func unitInputTextFieldChanged(sender: UITextField) {
+		if unitInputTextField.text == nil || (unitInputTextField.text?.isEmpty)! || Double(unitInputTextField.text!) == nil {
+			doneButton.enabled = false
+			invalidInputLabel.hidden = false
+		} else {
+			doneButton.enabled = true
+			invalidInputLabel.hidden = true
+		}
+	}
+	
+	@IBAction func unitSwitchTapped(sender: UISwitch) {
+		useLiters()
+	}
+	
+	func useLiters () {
+		if measurementSwitch.on {
+			titleLabel.text = "Liters Per Minute"
+			defaults.setBool(true, forKey: "useLiters")
+			
+		} else {
+			titleLabel.text = "Gallons Per Minute"
+			defaults.setBool(false, forKey: "useLiters")
+		}
+		
 	}
 }

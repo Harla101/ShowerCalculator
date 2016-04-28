@@ -8,6 +8,8 @@
 
 import UIKit
 
+
+
 class FirstViewController: UIViewController {
 	@IBOutlet var displayTimeLabel: UILabel!
 	@IBOutlet weak var startStopButton: UIButton!
@@ -17,29 +19,35 @@ class FirstViewController: UIViewController {
 	
 	var startTime = NSTimeInterval()
 	var timer:NSTimer = NSTimer()
-	var waterPerMinute = 2.1
 	
-	var isConvertedToLiters = false
+	let defaults = NSUserDefaults.standardUserDefaults()
+	
+	
+	var waterPerMinute: Double = 2.1
+	var usingLiters = false
+	
 	
 
 	@IBOutlet var calcBackground: UIView!
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		checkForLiters()
 		displayTimeLabel.text = "00:00:00"
+		gallonsUsedLabel.adjustsFontSizeToFitWidth = true
 		
-		if isConvertedToLiters {
-			let gallonsToLiters = waterPerMinute * 3.785
-			waterPerMinute = gallonsToLiters
-			gallonsUsedStaticLabel.text = "Liters used"
-		}
-	}
+			}
 	
 	@IBAction func startStopButtonPressed(sender: UIButton) {
 		if !timer.valid {
+			
+			checkForLiters()
+			
 			displayTimeLabel.hidden = false
 			gallonsUsedLabel.hidden = false
 			gallonsUsedStaticLabel.hidden = false
+			waterPerMinute = defaults.doubleForKey("waterPerMinute") as Double
+
 		timer = NSTimer.scheduledTimerWithTimeInterval(0.01, target: self, selector: #selector(FirstViewController.updateTime), userInfo: nil, repeats: true)
 		startTime = NSDate.timeIntervalSinceReferenceDate()
 		startStopButton.setImage(UIImage(named: "StopButton"), forState: .Normal)
@@ -89,6 +97,7 @@ class FirstViewController: UIViewController {
 		//calculate Water Used (in Gallons per minute)
 
 		let gallonsUsed =  (Double(strMinutes)! * waterPerMinute) + (Double(strSeconds)! * (waterPerMinute / 60)) + (Double(strFraction)! * (waterPerMinute / 6000))
+		print(waterPerMinute)
 		let strGallonsUsed = String(format: "%.2f", gallonsUsed)
 
 		
@@ -104,5 +113,12 @@ class FirstViewController: UIViewController {
 	}
 	
 
+	func checkForLiters () {
+		usingLiters = defaults.boolForKey("useLiters")
+		if usingLiters {
+			gallonsUsedStaticLabel.text = "Liters used"
+		}
+
+	}
 
 }
