@@ -47,7 +47,7 @@ class UnitSettingViewController: UIViewController {
 		dismissViewControllerAnimated(true, completion: nil)
 	}
 	@IBAction func unitInputTextFieldChanged(sender: UITextField) {
-		if unitInputTextField.text == nil || (unitInputTextField.text?.isEmpty)! || Double(unitInputTextField.text!) == nil {
+		if Double(unitInputTextField.text!) == nil || Double(unitInputTextField.text!) < 0 {
 			doneButton.enabled = false
 			invalidInputLabel.hidden = false
 		} else {
