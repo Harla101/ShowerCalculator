@@ -40,12 +40,6 @@ class FirstViewController: UIViewController {
 	
 	@IBAction func startStopButtonPressed(sender: UIButton) {
 		if !timer.valid {
-			
-			checkForLiters()
-			
-			displayTimeLabel.hidden = false
-			gallonsUsedLabel.hidden = false
-			gallonsUsedStaticLabel.hidden = false
 			waterPerMinute = defaults.doubleForKey("waterPerMinute") as Double
 
 		timer = NSTimer.scheduledTimerWithTimeInterval(0.01, target: self, selector: #selector(FirstViewController.updateTime), userInfo: nil, repeats: true)
@@ -67,6 +61,7 @@ class FirstViewController: UIViewController {
 			gallonsUsedLabel.text = "0.00"
 			startStopButton.setImage(UIImage(named: "StartButton"), forState: .Normal)
 			saveButton.hidden = true
+			checkForLiters()
 			
 	}
 
@@ -97,11 +92,10 @@ class FirstViewController: UIViewController {
 		//calculate Water Used (in Gallons per minute)
 
 		let gallonsUsed =  (Double(strMinutes)! * waterPerMinute) + (Double(strSeconds)! * (waterPerMinute / 60)) + (Double(strFraction)! * (waterPerMinute / 6000))
-		print(waterPerMinute)
 		let strGallonsUsed = String(format: "%.2f", gallonsUsed)
 
 		
-		//concatenate minuets, seconds and milliseconds as assign it to the UILabel
+		//concatenate minutes, seconds and milliseconds as assign it to the UILabel
 		displayTimeLabel.text = "\(strMinutes):\(strSeconds):\(strFraction)"
 		gallonsUsedLabel.text = "\(strGallonsUsed)"
 	}
@@ -112,11 +106,26 @@ class FirstViewController: UIViewController {
 		// Dispose of any resources that can be recreated.
 	}
 	
+	override func viewWillAppear(animated: Bool) {
+		checkForLiters()
+	}
+	
+	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+		if segue.identifier == "showSaveModal" {
+			if let destinationVC = segue.destinationViewController as? SaveModalViewController {
+				destinationVC.waterUsed = gallonsUsedLabel.text!
+				destinationVC.timeTaken = displayTimeLabel.text!
+							}
+		}
+	}
+	
 
 	func checkForLiters () {
 		usingLiters = defaults.boolForKey("useLiters")
 		if usingLiters {
-			gallonsUsedStaticLabel.text = "Liters used"
+			gallonsUsedStaticLabel.text = "Liters used:"
+		} else {
+			gallonsUsedStaticLabel.text = "Gallons used:"
 		}
 
 	}
