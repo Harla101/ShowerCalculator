@@ -7,12 +7,17 @@
 //
 
 import UIKit
+import CoreData
 
 class HistoryViewController: UIViewController {
 	@IBOutlet weak var tableView: UITableView!
+	
+	var savedShowers = [NSManagedObject]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+//		title = "\"Your Shower Stats\""
+//		tableView.registerClass(UITableViewCell, forCellReuseIdentifier: "Cell")
 		
 
         // Do any additional setup after loading the view.

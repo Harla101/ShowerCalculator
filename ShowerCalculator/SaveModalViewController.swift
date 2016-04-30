@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class SaveModalViewController: UIViewController {
 	@IBOutlet weak var timeTakenLabel: UILabel!
@@ -16,6 +17,7 @@ class SaveModalViewController: UIViewController {
 	@IBOutlet weak var popUpView: UIView!
 	
 	let defaults = NSUserDefaults.standardUserDefaults()
+	var savedShowersArray = [NSManagedObject]()
 	
 	var timeTaken = ""
 	var waterUsed = ""
@@ -41,8 +43,32 @@ class SaveModalViewController: UIViewController {
 	}
 	
 	@IBAction func saveButtonTapped(sender: UIButton) {
+		let waterUsedAsDouble = Double(waterUsed)
+		self.saveShower(waterUsedAsDouble!)
 		dismissViewControllerAnimated(true, completion: nil)
 	}
+	
+	func saveShower(waterUsed: Double) {
+		let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+		
+		let managedContext = appDelegate.managedObjectContext
+		
+		let entity = NSEntityDescription.entityForName("SavedShower", inManagedObjectContext: managedContext)
+		
+		let saveShower = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: managedContext)
+		
+		saveShower.setValue(waterUsed, forKey: "waterUsed")
+		
+		do {
+			try managedContext.save()
+			
+			savedShowersArray.append(saveShower)
+		} catch let error as NSError {
+			print("Could not save \(error), \(error.userInfo)")
+		}
+	}
+	
+	
 	
 	
 	func updateLabels() {
