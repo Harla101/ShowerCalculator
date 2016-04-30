@@ -17,6 +17,7 @@
 		AA2145171CD2FC2200B50CA2 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2145161CD2FC2200B50CA2 /* HistoryViewController.swift */; };
 		AA5E88201CD1A3EC002305B1 /* BaseTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5E881F1CD1A3EC002305B1 /* BaseTabBarController.swift */; };
 		AA65CF661CD55C75007AC32C /* savedShowers.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AA65CF641CD55C75007AC32C /* savedShowers.xcdatamodeld */; };
+		AA65CF681CD56977007AC32C /* DeleteDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA65CF671CD56977007AC32C /* DeleteDataViewController.swift */; };
 		AADF5DF11CCD63D400E78414 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADF5DF01CCD63D400E78414 /* SettingsTableViewController.swift */; };
 		AADF5DF31CCD697000E78414 /* UnitSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADF5DF21CCD697000E78414 /* UnitSettingViewController.swift */; };
 /* End PBXBuildFile section */
@@ -34,6 +35,7 @@
 		AA2145161CD2FC2200B50CA2 /* HistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		AA5E881F1CD1A3EC002305B1 /* BaseTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTabBarController.swift; sourceTree = "<group>"; };
 		AA65CF651CD55C75007AC32C /* savedShowers.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = savedShowers.xcdatamodel; sourceTree = "<group>"; };
+		AA65CF671CD56977007AC32C /* DeleteDataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteDataViewController.swift; sourceTree = "<group>"; };
 		AADF5DF01CCD63D400E78414 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		AADF5DF21CCD697000E78414 /* UnitSettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnitSettingViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -105,6 +107,7 @@
 				AA5E881F1CD1A3EC002305B1 /* BaseTabBarController.swift */,
 				AA1BB4261CD1ADE100D28AD2 /* SaveModalViewController.swift */,
 				AA2145161CD2FC2200B50CA2 /* HistoryViewController.swift */,
+				AA65CF671CD56977007AC32C /* DeleteDataViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -184,6 +187,7 @@
 				AADF5DF11CCD63D400E78414 /* SettingsTableViewController.swift in Sources */,
 				AA01FE5F1CCBDA03006777D1 /* SecondViewController.swift in Sources */,
 				AA5E88201CD1A3EC002305B1 /* BaseTabBarController.swift in Sources */,
+				AA65CF681CD56977007AC32C /* DeleteDataViewController.swift in Sources */,
 				AA01FE5B1CCBDA03006777D1 /* AppDelegate.swift in Sources */,
 				AADF5DF31CCD697000E78414 /* UnitSettingViewController.swift in Sources */,
 				AA2145171CD2FC2200B50CA2 /* HistoryViewController.swift in Sources */,

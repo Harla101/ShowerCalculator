@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Shower Timer-->
@@ -289,8 +290,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" sectionIndexMinimumDisplayRowCount="2" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="AgU-Ze-PkU">
-                                <rect key="frame" x="0.0" y="359" width="375" height="259"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" sectionIndexMinimumDisplayRowCount="2" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="AgU-Ze-PkU">
+                                <rect key="frame" x="-4" y="252" width="383" height="366"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <sections/>
                                 <connections>
@@ -299,6 +300,13 @@
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="AgU-Ze-PkU" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leadingMargin" constant="-20" id="4F8-Gf-QOy"/>
+                            <constraint firstItem="AgU-Ze-PkU" firstAttribute="top" secondItem="L7p-HK-0SC" secondAttribute="bottom" constant="232" id="DAO-qp-E5L"/>
+                            <constraint firstItem="Djb-ko-YwX" firstAttribute="top" secondItem="AgU-Ze-PkU" secondAttribute="bottom" id="bjh-Cp-RmY"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="AgU-Ze-PkU" secondAttribute="trailing" constant="-20" id="gn9-YX-BxK"/>
+                            <constraint firstItem="AgU-Ze-PkU" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="tsg-gW-2JZ"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="History" image="second" id="cPa-gy-q4n"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
@@ -395,6 +403,9 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="xm8-Fa-PIo" kind="show" id="dGJ-Nt-pvz"/>
+                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -438,6 +449,63 @@
             </objects>
             <point key="canvasLocation" x="0.0" y="0.0"/>
         </scene>
+        <!--Delete Data View Controller-->
+        <scene sceneID="ZGO-Kq-jF1">
+            <objects>
+                <viewController id="xm8-Fa-PIo" customClass="DeleteDataViewController" customModule="ShowerCalculator" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="7gN-Wn-cPp"/>
+                        <viewControllerLayoutGuide type="bottom" id="bqw-we-jVP"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="IfJ-3b-YfF">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Do you want to clear all of your saved data?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2qb-fF-wJc">
+                                <rect key="frame" x="21" y="169" width="332" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="This cannot be undone" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iVr-yh-wJK">
+                                <rect key="frame" x="99" y="198" width="176" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sDj-gl-aVq">
+                                <rect key="frame" x="77" y="273" width="48" height="30"/>
+                                <state key="normal" title="Cancel"/>
+                                <connections>
+                                    <action selector="cancelButtonTapped:" destination="xm8-Fa-PIo" eventType="touchUpInside" id="JyB-fV-Q2K"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W6K-zC-cLx">
+                                <rect key="frame" x="203" y="273" width="72" height="30"/>
+                                <state key="normal" title="Clear Data"/>
+                                <connections>
+                                    <action selector="clearDataTapped:" destination="xm8-Fa-PIo" eventType="touchUpInside" id="Tiq-us-rRt"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p0k-aq-5IK">
+                                <rect key="frame" x="212" y="273" width="55" height="30"/>
+                                <state key="normal" title="Confirm"/>
+                                <connections>
+                                    <action selector="confirmedButtonTapped:" destination="xm8-Fa-PIo" eventType="touchUpInside" id="f3F-k6-ToG"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="clearDataButton" destination="W6K-zC-cLx" id="qRH-cS-KAj"/>
+                        <outlet property="confirmButton" destination="p0k-aq-5IK" id="XNu-v0-br6"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NS3-h7-AWr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1082.5" y="562.5"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="DWv-zn-HUQ">
             <objects>
@@ -454,7 +522,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WM9-rV-UYm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1201.5" y="1146.5"/>
+            <point key="canvasLocation" x="1192.5" y="1379.5"/>
         </scene>
     </scenes>
     <resources>

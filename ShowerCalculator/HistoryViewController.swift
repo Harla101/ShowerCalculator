@@ -16,12 +16,16 @@ class HistoryViewController: UIViewController, UITableViewDataSource {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+		tableView.reloadData()
 		title = "\"Your Shower Stats\""
 		tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "Cell")
     }
 	
 	override func viewWillAppear(animated: Bool) {
+		
 		super.viewWillAppear(animated)
+		
+		tableView.reloadData()
 		
 		let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
 		
@@ -49,11 +53,14 @@ class HistoryViewController: UIViewController, UITableViewDataSource {
 	
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCellWithIdentifier("Cell")
+		if savedShowers.isEmpty {
+			return cell!
+		} else {
 		let savedShowerCell = savedShowers[indexPath.row]
 		let waterLabelText = String(savedShowerCell.valueForKey("waterUsed") as! Double)
 		cell!.textLabel!.text = waterLabelText
 		return cell!
-
+		}
 	}
 
 }
