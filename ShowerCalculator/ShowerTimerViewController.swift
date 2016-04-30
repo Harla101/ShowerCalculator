@@ -10,7 +10,7 @@ import UIKit
 
 
 
-class FirstViewController: UIViewController {
+class ShowerTimerViewController: UIViewController {
 	@IBOutlet var displayTimeLabel: UILabel!
 	@IBOutlet weak var startStopButton: UIButton!
 	@IBOutlet weak var gallonsUsedLabel: UILabel!
@@ -42,7 +42,7 @@ class FirstViewController: UIViewController {
 		if !timer.valid {
 			waterPerMinute = defaults.doubleForKey("waterPerMinute") as Double
 
-		timer = NSTimer.scheduledTimerWithTimeInterval(0.01, target: self, selector: #selector(FirstViewController.updateTime), userInfo: nil, repeats: true)
+		timer = NSTimer.scheduledTimerWithTimeInterval(0.01, target: self, selector: #selector(ShowerTimerViewController.updateTime), userInfo: nil, repeats: true)
 		startTime = NSDate.timeIntervalSinceReferenceDate()
 		startStopButton.setImage(UIImage(named: "StopButton"), forState: .Normal)
 			saveButton.hidden = true

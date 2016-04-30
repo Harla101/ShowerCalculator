@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		AA01FE5B1CCBDA03006777D1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA01FE5A1CCBDA03006777D1 /* AppDelegate.swift */; };
-		AA01FE5D1CCBDA03006777D1 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA01FE5C1CCBDA03006777D1 /* FirstViewController.swift */; };
+		AA01FE5D1CCBDA03006777D1 /* ShowerTimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA01FE5C1CCBDA03006777D1 /* ShowerTimerViewController.swift */; };
 		AA01FE5F1CCBDA03006777D1 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA01FE5E1CCBDA03006777D1 /* SecondViewController.swift */; };
 		AA01FE621CCBDA03006777D1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA01FE601CCBDA03006777D1 /* Main.storyboard */; };
 		AA01FE641CCBDA03006777D1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA01FE631CCBDA03006777D1 /* Assets.xcassets */; };
@@ -24,7 +24,7 @@
 /* Begin PBXFileReference section */
 		AA01FE571CCBDA03006777D1 /* ShowerCalculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShowerCalculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA01FE5A1CCBDA03006777D1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		AA01FE5C1CCBDA03006777D1 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
+		AA01FE5C1CCBDA03006777D1 /* ShowerTimerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowerTimerViewController.swift; sourceTree = "<group>"; };
 		AA01FE5E1CCBDA03006777D1 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		AA01FE611CCBDA03006777D1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		AA01FE631CCBDA03006777D1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -100,7 +100,7 @@
 		AA1BB4251CD1AB0700D28AD2 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				AA01FE5C1CCBDA03006777D1 /* FirstViewController.swift */,
+				AA01FE5C1CCBDA03006777D1 /* ShowerTimerViewController.swift */,
 				AA01FE5E1CCBDA03006777D1 /* SecondViewController.swift */,
 				AA5E881F1CD1A3EC002305B1 /* BaseTabBarController.swift */,
 				AA1BB4261CD1ADE100D28AD2 /* SaveModalViewController.swift */,
@@ -189,7 +189,7 @@
 				AADF5DF31CCD697000E78414 /* UnitSettingViewController.swift in Sources */,
 				AA2145171CD2FC2200B50CA2 /* HistoryViewController.swift in Sources */,
 				AA1BB4271CD1ADE100D28AD2 /* SaveModalViewController.swift in Sources */,
-				AA01FE5D1CCBDA03006777D1 /* FirstViewController.swift in Sources */,
+				AA01FE5D1CCBDA03006777D1 /* ShowerTimerViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

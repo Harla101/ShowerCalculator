@@ -13,6 +13,7 @@ class SaveModalViewController: UIViewController {
 	@IBOutlet weak var waterUsedLabel: UILabel!
 	@IBOutlet weak var dateAndTimeLabel: UILabel!
 	@IBOutlet weak var waterUnitLabel: UILabel!
+	@IBOutlet weak var popUpView: UIView!
 	
 	let defaults = NSUserDefaults.standardUserDefaults()
 	
