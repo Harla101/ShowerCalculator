@@ -9,34 +9,51 @@
 import UIKit
 import CoreData
 
-class HistoryViewController: UIViewController {
+class HistoryViewController: UIViewController, UITableViewDataSource {
 	@IBOutlet weak var tableView: UITableView!
 	
 	var savedShowers = [NSManagedObject]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//		title = "\"Your Shower Stats\""
-//		tableView.registerClass(UITableViewCell, forCellReuseIdentifier: "Cell")
-		
-
-        // Do any additional setup after loading the view.
+		title = "\"Your Shower Stats\""
+		tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "Cell")
     }
+	
+	override func viewWillAppear(animated: Bool) {
+		super.viewWillAppear(animated)
+		
+		let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+		
+		let managedContext = appDelegate.managedObjectContext
+		
+		let fetchRequest = NSFetchRequest(entityName: "SavedShower")
+		
+		do {
+			let results =
+				try managedContext.executeFetchRequest(fetchRequest)
+			savedShowers = results as! [NSManagedObject]
+		} catch let error as NSError {
+			print("Could not fetch \(error), \(error.userInfo)")
+		}
+	}
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+	
+	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		return savedShowers.count
+	}
+	
+	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+		let cell = tableView.dequeueReusableCellWithIdentifier("Cell")
+		let savedShowerCell = savedShowers[indexPath.row]
+		let waterLabelText = String(savedShowerCell.valueForKey("waterUsed") as! Double)
+		cell!.textLabel!.text = waterLabelText
+		return cell!
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+	}
 
 }

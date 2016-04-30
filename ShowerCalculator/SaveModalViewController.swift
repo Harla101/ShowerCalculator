@@ -52,11 +52,8 @@ class SaveModalViewController: UIViewController {
 		let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
 		
 		let managedContext = appDelegate.managedObjectContext
-		
 		let entity = NSEntityDescription.entityForName("SavedShower", inManagedObjectContext: managedContext)
-		
 		let saveShower = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: managedContext)
-		
 		saveShower.setValue(waterUsed, forKey: "waterUsed")
 		
 		do {
