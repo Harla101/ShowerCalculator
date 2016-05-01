@@ -13,6 +13,8 @@ class HistoryViewController: UIViewController, UITableViewDataSource {
 	@IBOutlet weak var tableView: UITableView!
 	
 	var savedShowers = [NSManagedObject]()
+	
+	
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,16 +57,27 @@ class HistoryViewController: UIViewController, UITableViewDataSource {
 	}
 	
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCellWithIdentifier("Cell")
+		let cell = tableView.dequeueReusableCellWithIdentifier("historyCell") as! HistoryTableViewCell
 		if savedShowers.isEmpty {
-			cell!.textLabel!.text = "You have not saved any shower times"
-			return cell!
+			cell.dateLabel.hidden = true
+			cell.showerLengthLabel.hidden = true
+			cell.waterUsedLabel.hidden = true
+			cell.noDataLabel.hidden = false
+			return cell
 		} else {
 		let savedShowerCell = savedShowers[indexPath.row]
+			cell.noDataLabel.hidden = true
+			cell.dateLabel.hidden = false
+			cell.showerLengthLabel.hidden = false
+			cell.waterUsedLabel.hidden = false
 		let waterLabelText = String(savedShowerCell.valueForKey("waterUsed") as! Double)
-		cell!.textLabel!.text = waterLabelText
-		return cell!
+		cell.waterUsedLabel.text = waterLabelText
+		let dateLabelText = String(savedShowerCell.valueForKey("showerDate") as! String)
+			cell.dateLabel.text = dateLabelText
+		let showerLengthText = String(savedShowerCell.valueForKey("showerTimeLength") as! String)
+			cell.showerLengthLabel.text = showerLengthText
+			
+		return cell
 		}
 	}
-
 }

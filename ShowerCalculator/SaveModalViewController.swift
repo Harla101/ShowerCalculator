@@ -21,6 +21,7 @@ class SaveModalViewController: UIViewController {
 	
 	var showerTimeLength = ""
 	var waterUsed = ""
+	var convertedDateStr = ""
 	
 	let timeNow = NSDate()
 	let dateFormatter = NSDateFormatter()
@@ -44,11 +45,11 @@ class SaveModalViewController: UIViewController {
 	
 	@IBAction func saveButtonTapped(sender: UIButton) {
 		let waterUsedAsDouble = Double(waterUsed)
-		self.saveShower(waterUsedAsDouble!, timeNow: timeNow)
+		self.saveShower(waterUsedAsDouble!, timeNow: convertedDateStr, showerTimeLength: showerTimeLength)
 		dismissViewControllerAnimated(true, completion: nil)
 	}
 	
-	func saveShower(waterUsed: Double, timeNow: NSDate) {
+	func saveShower(waterUsed: Double, timeNow: String, showerTimeLength: String) {
 		let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
 		
 		let managedContext = appDelegate.managedObjectContext
@@ -58,6 +59,7 @@ class SaveModalViewController: UIViewController {
 		
 		saveShower.setValue(waterUsed, forKey: "waterUsed")
 		saveShower.setValue(timeNow, forKey: "showerDate")
+		saveShower.setValue(showerTimeLength, forKey: "showerTimeLength")
 		
 		do {
 			try managedContext.save()
@@ -65,10 +67,6 @@ class SaveModalViewController: UIViewController {
 		} catch let error as NSError {
 			print("Could not save \(error), \(error.userInfo)")
 		}
-	}
-	
-	func timeFromString(string: String) {
-		print(string)
 	}
 	
 		
@@ -80,7 +78,7 @@ class SaveModalViewController: UIViewController {
 			dateFormatter.locale = NSLocale.currentLocale()
 			dateFormatter.dateStyle = .MediumStyle
 			dateFormatter.timeStyle = .ShortStyle
-			let convertedDateStr = dateFormatter.stringFromDate(timeNow)
+			convertedDateStr = dateFormatter.stringFromDate(timeNow)
 			dateAndTimeLabel.text = convertedDateStr
 			
 		}
