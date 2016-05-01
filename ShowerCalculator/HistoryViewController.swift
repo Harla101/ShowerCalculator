@@ -16,8 +16,7 @@ class HistoryViewController: UIViewController, UITableViewDataSource {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-		tableView.reloadData()
-		title = "\"Your Shower Stats\""
+		self.tableView.reloadData()
 		tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "Cell")
     }
 	
@@ -25,7 +24,7 @@ class HistoryViewController: UIViewController, UITableViewDataSource {
 		
 		super.viewWillAppear(animated)
 		
-		tableView.reloadData()
+		self.tableView.reloadData()
 		
 		let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
 		
@@ -48,12 +47,17 @@ class HistoryViewController: UIViewController, UITableViewDataSource {
     }
 	
 	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		if savedShowers.isEmpty {
+			return 1
+		} else {
 		return savedShowers.count
+		}
 	}
 	
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCellWithIdentifier("Cell")
 		if savedShowers.isEmpty {
+			cell!.textLabel!.text = "You have not saved any shower times"
 			return cell!
 		} else {
 		let savedShowerCell = savedShowers[indexPath.row]

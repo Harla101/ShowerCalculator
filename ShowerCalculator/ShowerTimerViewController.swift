@@ -114,7 +114,7 @@ class ShowerTimerViewController: UIViewController {
 		if segue.identifier == "showSaveModal" {
 			if let destinationVC = segue.destinationViewController as? SaveModalViewController {
 				destinationVC.waterUsed = gallonsUsedLabel.text!
-				destinationVC.timeTaken = displayTimeLabel.text!
+				destinationVC.showerTimeLength = displayTimeLabel.text!
 							}
 		}
 	}

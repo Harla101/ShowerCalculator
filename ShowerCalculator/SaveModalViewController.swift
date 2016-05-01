@@ -19,7 +19,7 @@ class SaveModalViewController: UIViewController {
 	let defaults = NSUserDefaults.standardUserDefaults()
 	var savedShowersArray = [NSManagedObject]()
 	
-	var timeTaken = ""
+	var showerTimeLength = ""
 	var waterUsed = ""
 	
 	let timeNow = NSDate()
@@ -44,50 +44,54 @@ class SaveModalViewController: UIViewController {
 	
 	@IBAction func saveButtonTapped(sender: UIButton) {
 		let waterUsedAsDouble = Double(waterUsed)
-		self.saveShower(waterUsedAsDouble!)
+		self.saveShower(waterUsedAsDouble!, timeNow: timeNow)
 		dismissViewControllerAnimated(true, completion: nil)
 	}
 	
-	func saveShower(waterUsed: Double) {
+	func saveShower(waterUsed: Double, timeNow: NSDate) {
 		let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
 		
 		let managedContext = appDelegate.managedObjectContext
 		let entity = NSEntityDescription.entityForName("SavedShower", inManagedObjectContext: managedContext)
 		let saveShower = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: managedContext)
+	
+		
 		saveShower.setValue(waterUsed, forKey: "waterUsed")
+		saveShower.setValue(timeNow, forKey: "showerDate")
 		
 		do {
 			try managedContext.save()
-			
 			savedShowersArray.append(saveShower)
 		} catch let error as NSError {
 			print("Could not save \(error), \(error.userInfo)")
 		}
 	}
 	
-	
-	
-	
-	func updateLabels() {
-		checkForLiters()
-		timeTakenLabel.text = timeTaken
-		waterUsedLabel.text = waterUsed
-		
-		dateFormatter.locale = NSLocale.currentLocale()
-		dateFormatter.dateStyle = .MediumStyle
-		dateFormatter.timeStyle = .ShortStyle
-		let convertedDateStr = dateFormatter.stringFromDate(timeNow)
-		dateAndTimeLabel.text = convertedDateStr
-		
+	func timeFromString(string: String) {
+		print(string)
 	}
 	
-	func checkForLiters () {
-		let usingLiters = defaults.boolForKey("useLiters")
-		if usingLiters {
-			waterUnitLabel.text = "Liters used:"
-		} else {
-			waterUnitLabel.text = "Gallons used:"
+		
+		func updateLabels() {
+			checkForLiters()
+			timeTakenLabel.text = showerTimeLength
+			waterUsedLabel.text = waterUsed
+			
+			dateFormatter.locale = NSLocale.currentLocale()
+			dateFormatter.dateStyle = .MediumStyle
+			dateFormatter.timeStyle = .ShortStyle
+			let convertedDateStr = dateFormatter.stringFromDate(timeNow)
+			dateAndTimeLabel.text = convertedDateStr
+			
 		}
-	}
-	
+		
+		func checkForLiters () {
+			let usingLiters = defaults.boolForKey("useLiters")
+			if usingLiters {
+				waterUnitLabel.text = "Liters used:"
+			} else {
+				waterUnitLabel.text = "Gallons used:"
+			}
+		}
+		
 	}
