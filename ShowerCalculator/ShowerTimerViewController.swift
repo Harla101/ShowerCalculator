@@ -17,14 +17,14 @@ class ShowerTimerViewController: UIViewController {
 	@IBOutlet weak var saveButton: UIButton!
 	@IBOutlet weak var gallonsUsedStaticLabel: UILabel!
 	
-	var startTime = NSTimeInterval()
-	var timer:NSTimer = NSTimer()
+
 	
 	let defaults = NSUserDefaults.standardUserDefaults()
-	
-	
 	var waterPerMinute: Double = 2.1
+	
 	var usingLiters = false
+	var startTime = NSTimeInterval()
+	var timer:NSTimer = NSTimer()
 	
 	
 
@@ -32,6 +32,12 @@ class ShowerTimerViewController: UIViewController {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		if waterPerMinute == 0.0 {
+			defaults.setDouble(2.1, forKey: "waterPerMinute")
+			waterPerMinute = defaults.doubleForKey("waterPerMinute") as Double
+		} else {
+			waterPerMinute = defaults.doubleForKey("waterPerMinute") as Double
+		}
 		checkForLiters()
 		displayTimeLabel.text = "00:00:00"
 		gallonsUsedLabel.adjustsFontSizeToFitWidth = true
@@ -40,9 +46,7 @@ class ShowerTimerViewController: UIViewController {
 	
 	@IBAction func startStopButtonPressed(sender: UIButton) {
 		if !timer.valid {
-			waterPerMinute = defaults.doubleForKey("waterPerMinute") as Double
-
-		timer = NSTimer.scheduledTimerWithTimeInterval(0.01, target: self, selector: #selector(ShowerTimerViewController.updateTime), userInfo: nil, repeats: true)
+		timer = NSTimer.scheduledTimerWithTimeInterval(0.01, target: self, selector: #selector(ShowerTimerViewController.updateTimeAndWater), userInfo: nil, repeats: true)
 		startTime = NSDate.timeIntervalSinceReferenceDate()
 		startStopButton.setImage(UIImage(named: "StopButton"), forState: .Normal)
 			saveButton.hidden = true
@@ -66,36 +70,27 @@ class ShowerTimerViewController: UIViewController {
 	}
 
 	
-	func updateTime() {
+	func updateTimeAndWater() {
 		let currentTime = NSDate.timeIntervalSinceReferenceDate()
 		
-		//Find the difference between current time and start time.
+		//Timer process
 		var elapsedTime: NSTimeInterval = currentTime - startTime
-		
-		//calculate the minutes in elapsed time.
 		let minutes = UInt8(elapsedTime / 60.0)
 		elapsedTime -= (NSTimeInterval(minutes) * 60)
-		
-		//calculate the seconds in elapsed time.
 		let seconds = UInt8(elapsedTime)
 		elapsedTime -= NSTimeInterval(seconds)
-		
-		//find out the fraction of milliseconds to be displayed.
 		let fraction = UInt8(elapsedTime * 100)
-		
-		//add the leading zero for minutes, seconds and millseconds and store them as string constants
-		
 		let strMinutes = String(format: "%02d", minutes)
 		let strSeconds = String(format: "%02d", seconds)
 		let strFraction = String(format: "%02d", fraction)
 		
-		//calculate Water Used (in Gallons per minute)
+		//calculate Water Used per minute
 
 		let gallonsUsed =  (Double(strMinutes)! * waterPerMinute) + (Double(strSeconds)! * (waterPerMinute / 60)) + (Double(strFraction)! * (waterPerMinute / 6000))
 		let strGallonsUsed = String(format: "%.2f", gallonsUsed)
 
 		
-		//concatenate minutes, seconds and milliseconds as assign it to the UILabel
+		//live update labels
 		displayTimeLabel.text = "\(strMinutes):\(strSeconds):\(strFraction)"
 		gallonsUsedLabel.text = "\(strGallonsUsed)"
 	}
@@ -107,6 +102,12 @@ class ShowerTimerViewController: UIViewController {
 	}
 	
 	override func viewWillAppear(animated: Bool) {
+		if waterPerMinute == 0.0 {
+			defaults.setDouble(2.1, forKey: "waterPerMinute")
+			waterPerMinute = defaults.doubleForKey("waterPerMinute") as Double
+		} else {
+		waterPerMinute = defaults.doubleForKey("waterPerMinute") as Double
+		}
 		checkForLiters()
 	}
 	

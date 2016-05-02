@@ -24,6 +24,7 @@ class UnitSettingViewController: UIViewController {
 		unitInputTextField.text = String(defaults.doubleForKey("waterPerMinute"))
 		measurementSwitch.on = defaults.boolForKey("useLiters")
 		useLiters()
+		
 	}
 	
 	override func didReceiveMemoryWarning() {
@@ -47,7 +48,7 @@ class UnitSettingViewController: UIViewController {
 		dismissViewControllerAnimated(true, completion: nil)
 	}
 	@IBAction func unitInputTextFieldChanged(sender: UITextField) {
-		if Double(unitInputTextField.text!) == nil || Double(unitInputTextField.text!) < 0 {
+		if Double(unitInputTextField.text!) == nil || Double(unitInputTextField.text!) <= 0 {
 			doneButton.enabled = false
 			invalidInputLabel.hidden = false
 		} else {
