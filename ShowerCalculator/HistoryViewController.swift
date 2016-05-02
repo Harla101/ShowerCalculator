@@ -27,8 +27,8 @@ class HistoryViewController: UIViewController, UITableViewDataSource {
 	}
 	
 	override func viewWillAppear(animated: Bool) {
+		updateTable()
 		super.viewWillAppear(animated)
-		tableView.reloadData()
 		checkForLiter()
 
 		let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
@@ -123,5 +123,10 @@ class HistoryViewController: UIViewController, UITableViewDataSource {
 	func sumWaterUsedArray (arrayToSum: [Double]) -> Double {
 		let answer = arrayToSum.reduce(0, combine: +)
 		return answer
+	}
+	func updateTable () {
+		dispatch_async(dispatch_get_main_queue()) {
+			self.tableView.reloadData()
+		}
 	}
 }
